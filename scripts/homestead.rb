@@ -107,5 +107,12 @@ class Homestead
         s.args = [settings["blackfire"]["id"], settings["blackfire"]["token"]]
       end
     end
+    # Custom Project provisioning
+    settings["sites"].each do |site|
+      config.vm.provision "shell" do |s|
+          s.path = "./scripts/project_setup.sh"
+          s.args = [site["map"], site["to"], site["provisionScript"], site["appHome"]]
+      end
+    end
   end
 end
